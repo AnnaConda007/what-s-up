@@ -1,7 +1,12 @@
+@font-face {
+  font-family: 'SegoeUI';
+  src: url('/public/SegoeUI.ttf');
+}
 .App {
   text-align: center;
   display: flex;
   flex-wrap: wrap;
   height: 100%;
-  background-color: #f0f2f5
+  background-color: #d1d7db;
+  font-family: 'SegoeUI';
 }
