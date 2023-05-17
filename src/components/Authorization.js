@@ -6,15 +6,11 @@ export const Authorization = () => {
 		const idInstance = '1101821223';
 		const apiTokenInstance = '758ada212e094a7883a6ecadf6c3b9e9c6ea1bc713324d8682';
 
-		fetch(`https://api.green-api.com/waInstance/${idInstance}/GetSettings/${apiTokenInstance}`, {
+		fetch(`https://api.green-api.com/waInstance${idInstance}/getStatusInstance/${apiTokenInstance}`, {
 			method: 'GET',
 		})
 			.then((response) => {
-				if (response.ok) {
-					return response.json();
-				} else {
-					throw new Error('Failed to fetch settings');
-				}
+				console.log(response);
 			})
 			.then((data) => {})
 			.catch((error) => {
@@ -32,7 +28,7 @@ export const Authorization = () => {
 					autoComplete='off'
 					placeholder='apiTokenInstance'
 				></input>
-				<button type='submite' className='form__btn'>
+				<button onClick={han} type='submit' className='form__btn'>
 					Войти
 				</button>
 			</form>
