@@ -35,9 +35,25 @@
   background-color: rgb(13, 88, 77);
   background-image: url('/public/what-s-img.jpg');
   background-size: contain;
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   width: 100%;
   z-index: 1;
+}
+
+.messages__message {
+  align-self: flex-end;
+  background-color: #4ada80;
+  max-width: 200px;
+  width: fit-content;
+  overflow-wrap: break-word;
+  padding: 5px 10px;
+  margin: 10px;
+  border-radius: 15px;
+  border-bottom-right-radius: 0px;
+  white-space: normal;
+  text-align: start;
 }
 
 .main__message-form {
@@ -52,8 +68,6 @@
 
 .main__message {
   width: 90%;
-  min-height: 10px;
-  max-height: 40px;
   outline: none;
   border-radius: 10px;
   font-size: 16px;
@@ -62,6 +76,7 @@
   text-align: start;
   background-color: rgb(255, 255, 255);
   overflow-y: scroll;
+  resize: none;
 }
 
 .main__btn {
