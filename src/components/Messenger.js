@@ -8,7 +8,7 @@ export const Messenger = () => {
 			</div>
 			<div className='main__messages'></div>
 			<form className='main__message-form '>
-				<textarea className='main__message '></textarea>
+				<div class='main__message' contenteditable='true'></div>
 				<button className='main__btn'>
 					<img className='main__send' src='send-btn.png' alt='отправить'></img>
 				</button>
