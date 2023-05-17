@@ -1,5 +1,31 @@
 import './Messenger.css';
+import { useState } from 'react';
 export const Messenger = () => {
+	const idInstance = localStorage.getItem('idInstance');
+	const apiTokenInstance = localStorage.getItem('apiTokenInstance');
+	const phoneNum = localStorage.getItem('phoneNum') + '@c.us';
+	const [message, setMessage] = useState('');
+	const hadlerr = (e) => {
+		e.preventDefault();
+		fetch(`https://api.green-api.com/waInstance${idInstance}/SendMessage/${apiTokenInstance}`, {
+			method: 'POST',
+			body: JSON.stringify({
+				chatId: phoneNum,
+				message: message,
+			}),
+		})
+			.then((response) => {
+				if (response.ok) {
+					console.log(response);
+				} else {
+					console.log('error');
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
+	console.log(idInstance, apiTokenInstance, phoneNum, message);
 	return (
 		<main className='main'>
 			<div className='substrate'></div>
@@ -8,8 +34,13 @@ export const Messenger = () => {
 			</div>
 			<div className='main__messages'></div>
 			<form className='main__message-form '>
-				<div class='main__message' contenteditable='true'></div>
-				<button className='main__btn'>
+				<div className='main__message' contentEditable='true' onInput={(e) => setMessage(e.target.innerText)}></div>
+				<button
+					onClick={(e) => {
+						hadlerr(e);
+					}}
+					className='main__btn'
+				>
 					<img className='main__send' src='send-btn.png' alt='отправить'></img>
 				</button>
 			</form>

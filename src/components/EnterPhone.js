@@ -1,15 +1,19 @@
 import './Forms.css';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const EnterPhone = () => {
 	const apiTokenInstance = localStorage.getItem('apiTokenInstance');
+	const navigate = useNavigate();
 	const idInstance = localStorage.getItem('idInstance');
 	const [phoneNum, setPhoneNum] = useState('');
 	const handleNext = (e) => {
 		e.preventDefault();
 		localStorage.setItem('phoneNum', phoneNum);
 		console.log(apiTokenInstance, idInstance);
-		fetch(`https://api.green-api.com/waInstance${idInstance}/SendMessage/${apiTokenInstance}`, {
+		navigate('/what`s-up-messenger');
+
+		/*fetch(`https://api.green-api.com/waInstance${idInstance}/SendMessage/${apiTokenInstance}`, {
 			method: 'POST',
 			body: JSON.stringify({
 				chatId: '995555598092@c.us',
@@ -25,7 +29,7 @@ export const EnterPhone = () => {
 			})
 			.catch((error) => {
 				console.log(error);
-			});
+			});*/
 	};
 
 	return (
@@ -35,7 +39,7 @@ export const EnterPhone = () => {
 					className='form__input'
 					id='numberPhone'
 					required
-					autoComplete='off'
+					autoComplete='995555598092'
 					placeholder='Номер телефона получателя'
 					value={phoneNum}
 					onChange={(e) => setPhoneNum(e.target.value)}
