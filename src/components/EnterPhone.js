@@ -12,24 +12,6 @@ export const EnterPhone = () => {
 		localStorage.setItem('phoneNum', phoneNum);
 		console.log(apiTokenInstance, idInstance);
 		navigate('/what`s-up-messenger');
-
-		/*fetch(`https://api.green-api.com/waInstance${idInstance}/SendMessage/${apiTokenInstance}`, {
-			method: 'POST',
-			body: JSON.stringify({
-				chatId: '995555598092@c.us',
-				message: 'I use Green-API to send this message to you!',
-			}),
-		})
-			.then((response) => {
-				if (response.ok) {
-					console.log(response);
-				} else {
-					console.log('error');
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-			});*/
 	};
 
 	return (
@@ -51,7 +33,7 @@ export const EnterPhone = () => {
 						handleNext(e);
 					}}
 				>
-					Далее
+					Создать чат
 				</button>
 			</form>
 		</main>

@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 export const Authorization = () => {
-	const [idInstance, setIdInstance] = useState(''); //1101821223
-	const [apiTokenInstance, setApiTokenInstance] = useState(''); //758ada212e094a7883a6ecadf6c3b9e9c6ea1bc713324d8682
+	const [idInstance, setIdInstance] = useState('');
+	const [apiTokenInstance, setApiTokenInstance] = useState('');
 	const navigate = useNavigate();
 	const handleSubmit = (e) => {
 		e.preventDefault();

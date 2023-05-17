@@ -3,14 +3,15 @@ import { useState } from 'react';
 export const Messenger = () => {
 	const idInstance = localStorage.getItem('idInstance');
 	const apiTokenInstance = localStorage.getItem('apiTokenInstance');
-	const phoneNum = localStorage.getItem('phoneNum') + '@c.us';
+	const phoneNum = localStorage.getItem('phoneNum');
+	const phoneFormat = phoneNum + '@c.us';
 	const [message, setMessage] = useState('');
 	const hadlerr = (e) => {
 		e.preventDefault();
 		fetch(`https://api.green-api.com/waInstance${idInstance}/SendMessage/${apiTokenInstance}`, {
 			method: 'POST',
 			body: JSON.stringify({
-				chatId: phoneNum,
+				chatId: phoneFormat,
 				message: message,
 			}),
 		})
@@ -25,12 +26,11 @@ export const Messenger = () => {
 				console.log(error);
 			});
 	};
-	console.log(idInstance, apiTokenInstance, phoneNum, message);
 	return (
 		<main className='main'>
 			<div className='substrate'></div>
 			<div className='main__pnone'>
-				<h4 className='main__number'>+ 7 888888888888</h4>
+				<h4 className='main__number'>{phoneNum}</h4>
 			</div>
 			<div className='main__messages'></div>
 			<form className='main__message-form '>
