@@ -14,6 +14,8 @@ export const Authorization = () => {
 			.then((response) => {
 				if (response.ok) {
 					navigate('/enter-phone');
+					localStorage.setItem('idInstance', idInstance);
+					localStorage.setItem('apiTokenInstance', apiTokenInstance);
 				}
 			})
 			.catch((error) => {
