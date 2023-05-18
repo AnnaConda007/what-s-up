@@ -5,35 +5,29 @@
   justify-content: center;
 }
 
-.form {
+.main__frame {
   max-width: 500px;
   width: 100%;
-  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.form__input {
-  width: 90%;
-  margin: 5px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  font-size: 15px;
-  padding: 10px 20px;
-}
-
-.form__input:focus {
+.frame__input:focus {
   outline: 2px solid #008069;
 }
 
-.form__btn {
-  padding: 10px 40px;
+.frame__btn {
+  padding: 10px 0px;
   margin: 10px 0px;
+  max-width: 150px;
+  width: 70%;
   border: none;
   border-radius: 25px;
   background-color: #008069;
   color: white;
 }
 
-.form__btn:focus {
+.frame__btn:focus {
   outline: 2px solid #000404;
 }
