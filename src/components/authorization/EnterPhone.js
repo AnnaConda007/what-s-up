@@ -1,4 +1,5 @@
 import styles from './forms.module.css';
+import { Input } from '../Input/Input';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,26 +17,22 @@ export const EnterPhone = () => {
 
 	return (
 		<main className={styles.main}>
-			<div className={styles.main__frame}>
-				<input
-					className={styles.frame__input}
+			<form
+				className={styles.main__frame}
+				onSubmit={(e) => {
+					handleNext(e);
+				}}
+			>
+				<Input
 					id='numberPhone'
-					required
-					autoComplete='995555598092'
+					autoComplete='995555598092' //удалить
 					placeholder='Номер телефона получателя'
 					value={phoneNum}
 					onChange={(e) => setPhoneNum(e.target.value)}
-				></input>
-				<button
-					type='submit'
-					className={styles.frame__btn}
-					onClick={(e) => {
-						handleNext(e);
-					}}
-				>
-					Создать чат
-				</button>
-			</div>
+					formatted
+				></Input>
+				<button className={styles.frame__btn}>Создать чат</button>
+			</form>
 		</main>
 	);
 };

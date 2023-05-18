@@ -13,16 +13,6 @@
   justify-content: center;
 }
 
-.frame__input {
-  width: 100%;
-  margin: 5px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  font-size: 15px;
-  padding: 10px 20px;
-}
-
 .frame__input:focus {
   outline: 2px solid #008069;
 }
