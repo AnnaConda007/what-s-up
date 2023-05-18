@@ -1,6 +1,6 @@
 import styles from './messenger.module.css';
 import { useState } from 'react';
-
+import { SendBtn } from '../SendBtn/SendBtn';
 export const Messenger = () => {
 	const idInstance = localStorage.getItem('idInstance');
 	const apiTokenInstance = localStorage.getItem('apiTokenInstance');
@@ -52,28 +52,28 @@ export const Messenger = () => {
 	};
 
 	return (
-		<main className={styles.main}>
+		<>
 			<div className={styles.substrate}></div>
-			<div className={styles.main__pnone}>
-				<h4 className={styles.main__number}>{phoneNum}</h4>
-			</div>
-			<div className={styles.main__messages}>
-				{messages.map((msg, index) => (
-					<p key={index} className={styles.messages__message}>
-						{msg}
-					</p>
-				))}
-			</div>
-			<form className={styles.main__message_form}>
-				<textarea
-					className={styles.main__message}
-					value={message}
-					onChange={(e) => setMessage(e.target.value)}
-				></textarea>
-				<button onClick={handleSend} className={styles.main__btn}>
-					<img className={styles.main__send} src='send-btn.png' alt='отправить'></img>
-				</button>
-			</form>
-		</main>
+			<main className={styles.main}>
+				<div className={styles.main__pnone}>
+					<h4 className={styles.main__number}>{phoneNum}</h4>
+				</div>
+				<div className={styles.main__messages}>
+					{messages.map((msg, index) => (
+						<p key={index} className={styles.messages__message}>
+							{msg}
+						</p>
+					))}
+				</div>
+				<form className={styles.main__message_form}>
+					<textarea
+						className={styles.main__message}
+						value={message}
+						onChange={(e) => setMessage(e.target.value)}
+					></textarea>
+					<SendBtn onClick={handleSend}></SendBtn>
+				</form>
+			</main>
+		</>
 	);
 };

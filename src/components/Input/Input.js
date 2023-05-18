@@ -1,11 +1,11 @@
 import styles from './input.module.css';
 export const Input = ({ id, autoComplete, placeholder, value, onChange, formatted }) => {
 	const handleKeyPress = (e) => {
-		const key = e.key;
-
+		/*	const key = e.key;
+		
 		if (formatted && isNaN(Number(key))) {
 			e.preventDefault();
-		}
+		}                не работает кнопка delete */
 	};
 
 	return (

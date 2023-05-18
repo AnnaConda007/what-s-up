@@ -1,11 +1,7 @@
-@media (min-width: 600px) {
-  .main {
-    margin: 25px 10%;
-    display: flex;
-    width: 100%;
-  }
-}
 .main {
+  max-width: 900px;
+  width: 100%;
+  display: flex;
   flex-direction: column;
   margin: 25px;
   font-family: 'SegoeUI';
@@ -29,12 +25,13 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
+
 .main__number {
   padding-left: 40px;
 }
 
 .main__messages {
-  background-color: rgb(13, 88, 77);
+  background-color: #f0f2f5;
   background-image: url('/public/what-s-img.jpg');
   background-size: contain;
   display: flex;
@@ -42,6 +39,8 @@
   flex-grow: 1;
   width: 100%;
   z-index: 1;
+  height: 580px; /*не адаптируется*/
+  overflow-y: auto;
 }
 
 .messages__message {
@@ -80,14 +79,4 @@
   background-color: rgb(255, 255, 255);
   overflow-y: scroll;
   resize: none;
-}
-
-.main__btn {
-  background-color: transparent;
-  border: none;
-}
-
-.main__send {
-  width: 30px;
-  height: 30px;
 }
