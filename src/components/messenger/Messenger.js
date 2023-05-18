@@ -76,11 +76,7 @@ export const Messenger = () => {
 					))}
 				</div>
 				<form className={styles.main__message_form}>
-					<textarea
-						className={styles.main__message}
-						value={message}
-						onChange={(e) => setMessage(e.target.value)}
-					></textarea>
+					<input className={styles.main__message} value={message} onChange={(e) => setMessage(e.target.value)}></input>
 					<SendBtn onClick={handleSend}></SendBtn>
 				</form>
 			</main>

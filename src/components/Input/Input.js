@@ -17,7 +17,6 @@ export const Input = ({ id, autoComplete, placeholder, value, onChange, formatte
 			placeholder={placeholder}
 			value={value}
 			onChange={onChange}
-			onKeyDown={handleKeyPress}
 		/>
 	);
 };
