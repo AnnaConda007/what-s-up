@@ -57,6 +57,11 @@
   overflow-y: auto;
 }
 
+.main__messages::-webkit-scrollbar {
+  display: none;
+}
+
+
 .messages__message {
   align-self: flex-end;
   background-color: #4ada80;
@@ -92,6 +97,6 @@
   margin: 10px;
   text-align: start;
   background-color: rgb(255, 255, 255);
-  overflow-y: scroll;
   resize: none;
 }
+
