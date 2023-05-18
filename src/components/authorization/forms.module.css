@@ -5,14 +5,16 @@
   justify-content: center;
 }
 
-.form {
+.main__form {
   max-width: 500px;
   width: 100%;
-  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .form__input {
-  width: 90%;
+  width: 100%;
   margin: 5px;
   border-radius: 10px;
   border: none;
@@ -26,8 +28,10 @@
 }
 
 .form__btn {
-  padding: 10px 40px;
+  padding: 10px 0px;
   margin: 10px 0px;
+  max-width: 150px;
+  width: 70%;
   border: none;
   border-radius: 25px;
   background-color: #008069;

@@ -2,6 +2,12 @@
   font-family: 'SegoeUI';
   src: url('/public/SegoeUI.ttf');
 }
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .App {
   text-align: center;
   display: flex;

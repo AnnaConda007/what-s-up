@@ -1,4 +1,4 @@
-import './Forms.css';
+import styles from './forms.module.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,10 +15,10 @@ export const EnterPhone = () => {
 	};
 
 	return (
-		<main className='main'>
-			<form className='main__form form'>
+		<main className={styles.main}>
+			<form className={styles.main__form}>
 				<input
-					className='form__input'
+					className={styles.form__input}
 					id='numberPhone'
 					required
 					autoComplete='995555598092'
@@ -28,7 +28,7 @@ export const EnterPhone = () => {
 				></input>
 				<button
 					type='submit'
-					className='form__btn'
+					className={styles.form__btn}
 					onClick={(e) => {
 						handleNext(e);
 					}}

@@ -1,8 +1,8 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Authorization } from './components/Authorization';
-import { EnterPhone } from './components/EnterPhone';
-import { Messenger } from './components/Messenger';
+import { Authorization } from './components/authorization/Authorization';
+import { EnterPhone } from './components/authorization/EnterPhone';
+import { Messenger } from './components/messenger/Messenger';
 
 function App() {
 	return (

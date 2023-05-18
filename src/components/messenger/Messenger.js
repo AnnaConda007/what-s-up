@@ -1,4 +1,4 @@
-import './Messenger.css';
+import styles from './messenger.module.css';
 import { useState } from 'react';
 
 export const Messenger = () => {
@@ -52,22 +52,26 @@ export const Messenger = () => {
 	};
 
 	return (
-		<main className='main'>
-			<div className='substrate'></div>
-			<div className='main__pnone'>
-				<h4 className='main__number'>{phoneNum}</h4>
+		<main className={styles.main}>
+			<div className={styles.substrate}></div>
+			<div className={styles.main__pnone}>
+				<h4 className={styles.main__number}>{phoneNum}</h4>
 			</div>
-			<div className='main__messages messages'>
+			<div className={styles.main__messages}>
 				{messages.map((msg, index) => (
-					<p key={index} className='messages__message'>
+					<p key={index} className={styles.messages__message}>
 						{msg}
 					</p>
 				))}
 			</div>
-			<form className='main__message-form'>
-				<textarea className='main__message' value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
-				<button onClick={handleSend} className='main__btn'>
-					<img className='main__send' src='send-btn.png' alt='отправить'></img>
+			<form className={styles.main__message_form}>
+				<textarea
+					className={styles.main__message}
+					value={message}
+					onChange={(e) => setMessage(e.target.value)}
+				></textarea>
+				<button onClick={handleSend} className={styles.main__btn}>
+					<img className={styles.main__send} src='send-btn.png' alt='отправить'></img>
 				</button>
 			</form>
 		</main>
