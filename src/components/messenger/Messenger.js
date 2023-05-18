@@ -1,4 +1,5 @@
 import styles from './messenger.module.css';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { SendBtn } from '../SendBtn/SendBtn';
 export const Messenger = () => {
@@ -6,27 +7,28 @@ export const Messenger = () => {
 	const apiTokenInstance = localStorage.getItem('apiTokenInstance');
 	const phoneNum = localStorage.getItem('phoneNum');
 	const phoneFormat = phoneNum + '@c.us';
-
 	const [message, setMessage] = useState('');
 	const [messages, setMessages] = useState([]);
 
-	fetch(`https://api.green-api.com/waInstance${idInstance}/ReceiveNotification/${apiTokenInstance}`, {
-		method: 'GET',
-	})
-		.then((response) => {
-			console.log(response);
+	const getMessage = () => {
+		fetch(`https://api.green-api.com/waInstance${idInstance}/ReceiveNotification/${apiTokenInstance}`, {
+			method: 'GET',
 		})
-		.catch((error) => {
-			console.log(error);
+			.then((response) => {
+				console.log(response);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+
+		fetch(`https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}`, {
+			method: 'DELETE',
+			redirect: 'follow',
+		}).then((response) => {
+			console.log(response);
 		});
-
-	fetch(`https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}`, {
-		method: 'DELETE',
-		redirect: 'follow',
-	}).then((response) => {
-		console.log(response);
-	});
-
+	};
+	getMessage();
 	const handleSend = (e) => {
 		e.preventDefault();
 		fetch(`https://api.green-api.com/waInstance${idInstance}/SendMessage/${apiTokenInstance}`, {
@@ -41,15 +43,23 @@ export const Messenger = () => {
 					console.log(response);
 					setMessages([...messages, message]);
 					setMessage('');
-					console.log(messages);
 				} else {
-					console.log('error');
+					alert('Ошибка при отправке');
 				}
 			})
 			.catch((error) => {
 				console.log(error);
 			});
 	};
+
+	useEffect(() => {
+		const intervalId = setInterval(() => {
+			getMessage();
+		}, 5000);
+		return () => {
+			clearInterval(intervalId);
+		};
+	}, []); // !!!!!!!!!!!!  ???????????
 
 	return (
 		<>
