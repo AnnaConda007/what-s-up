@@ -16,9 +16,9 @@ export const EnterPhone = () => {
 
 	return (
 		<main className={styles.main}>
-			<form className={styles.main__form}>
+			<div className={styles.main__frame}>
 				<input
-					className={styles.form__input}
+					className={styles.frame__input}
 					id='numberPhone'
 					required
 					autoComplete='995555598092'
@@ -28,14 +28,14 @@ export const EnterPhone = () => {
 				></input>
 				<button
 					type='submit'
-					className={styles.form__btn}
+					className={styles.frame__btn}
 					onClick={(e) => {
 						handleNext(e);
 					}}
 				>
 					Создать чат
 				</button>
-			</form>
+			</div>
 		</main>
 	);
 };

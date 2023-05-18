@@ -5,7 +5,7 @@
   justify-content: center;
 }
 
-.main__form {
+.main__frame {
   max-width: 500px;
   width: 100%;
   display: flex;
@@ -13,7 +13,7 @@
   justify-content: center;
 }
 
-.form__input {
+.frame__input {
   width: 100%;
   margin: 5px;
   border-radius: 10px;
@@ -23,11 +23,11 @@
   padding: 10px 20px;
 }
 
-.form__input:focus {
+.frame__input:focus {
   outline: 2px solid #008069;
 }
 
-.form__btn {
+.frame__btn {
   padding: 10px 0px;
   margin: 10px 0px;
   max-width: 150px;
@@ -38,6 +38,6 @@
   color: white;
 }
 
-.form__btn:focus {
+.frame__btn:focus {
   outline: 2px solid #000404;
 }
