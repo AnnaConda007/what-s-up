@@ -1,12 +1,12 @@
-import './App.css';
+import styles from './App.module.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Authorization } from './components/authorization/Authorization';
-import { EnterPhone } from './components/authorization/EnterPhone';
-import { Messenger } from './components/messenger/Messenger';
+import { Authorization } from '../Authorization/Authorization';
+import { EnterPhone } from '../Authorization/EnterPhone';
+import { Messenger } from '../Messenger/Messenger';
 
 function App() {
 	return (
-		<div className='App'>
+		<div className={styles.App}>
 			<BrowserRouter>
 				<Routes>
 					<Route path='/' element={<Authorization />} />
