@@ -65,6 +65,7 @@ export const Messenger = () => {
 		<>
 			<div className={styles.substrate}></div>
 			<main className={styles.main}>
+				<div className={styles.ppp}>
 				<div className={styles.main__pnone}>
 					<h4 className={styles.main__number}>{phoneNum}</h4>
 				</div>
@@ -79,6 +80,7 @@ export const Messenger = () => {
 					<input className={styles.main__message} value={message} onChange={(e) => setMessage(e.target.value)}></input>
 					<SendBtn onClick={handleSend}></SendBtn>
 				</form>
+				</div>
 			</main>
 		</>
 	);

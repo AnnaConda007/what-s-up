@@ -1,14 +1,29 @@
 .main {
-  max-width: 900px;
   width: 100%;
+  height: 100%;
+  min-height: 600px;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-  margin: 25px;
   font-family: 'SegoeUI';
+  background-color: #d1d7db;
+}
+
+.ppp {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  z-index: 1;
+  max-width: 1000px;
+  width: 100%;
+  height: 95%;
 }
 
 .substrate {
-  height: 120px;
+  max-height: 120px;
+  height: 10%;
   width: 100%;
   background-color: #008069;
   position: absolute;
@@ -21,7 +36,6 @@
   padding: 20px 0px;
   width: 100%;
   text-align: start;
-  z-index: 1;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
@@ -36,10 +50,10 @@
   background-size: contain;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
   width: 100%;
-  z-index: 1;
-  height: 580px; /*не адаптируется*/
+  overflow-y: auto;
+  min-height: 400px;
+  height: 85%;
   overflow-y: auto;
 }
 
@@ -58,6 +72,7 @@
 }
 
 .main__message_form {
+  max-height: 15%;
   background-color: #f0f2f5;
   width: 100%;
   display: flex;
