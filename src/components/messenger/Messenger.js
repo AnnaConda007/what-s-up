@@ -19,8 +19,9 @@ export const Messenger = () => {
 		);
 		const jsonNotification = await notification.json();
 		if (!jsonNotification) return;
+		console.log(jsonNotification);
 		const receiptId = jsonNotification.receiptId;
-		const text = jsonNotification.body.messageData.textMessageData.textMessage;
+		const text = jsonNotification.messageData;
 		console.log(text);
 
 		const DeleteNotification = await fetch(
