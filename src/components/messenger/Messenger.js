@@ -10,47 +10,28 @@ export const Messenger = () => {
 	const [newIncoming, SetNewIncoming] = useState('');
 	const [incoming, SetIncoming] = useState([]);
 
-	const getMessage = () => {
-		fetch(`https://api.green-api.com/waInstance${idInstance}/ReceiveNotification/${apiTokenInstance}`, {
-			method: 'GET',
-		})
-			.then((response) => {
-				if (response.ok) {
-					return response.json();
-				} else {
-					throw new Error('Network response was not OK');
-				}
-			})
-			.then((jsonData) => {
-				if (jsonData && jsonData.receiptId) {
-					const receiptId = jsonData.receiptId;
-					if (jsonData.body.messageData.textMessageData) {
-						console.log(jsonData.body.messageData.textMessageData);
-					}
-					return fetch(
-						`https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`,
-						{
-							method: 'DELETE',
-							redirect: 'follow',
-						}
-					);
-				} else {
-					throw new Error('Receipt ID is not available');
-				}
-			})
-			.then((response) => {
-				if (response.ok) {
-					return response.json();
-				} else {
-					throw new Error('Network response was not OK');
-				}
-			})
-			.then((jsonData) => {
-				console.log(jsonData);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+	const getMessage = async () => {
+		const notification = await fetch(
+			`https://api.green-api.com/waInstance${idInstance}/ReceiveNotification/${apiTokenInstance}`,
+			{
+				method: 'GET',
+			}
+		);
+		const jsonNotification = await notification.json();
+		if (!jsonNotification) return;
+		const receiptId = jsonNotification.receiptId;
+		const text = jsonNotification.body.messageData.textMessageData.textMessage;
+		console.log(text);
+
+		const DeleteNotification = await fetch(
+			`https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`,
+			{
+				method: 'DELETE',
+				redirect: 'follow',
+			}
+		);
+		const jsonDeleteNotification = await DeleteNotification.json();
+		console.log(jsonDeleteNotification);
 	};
 
 	const handleSend = (e) => {
