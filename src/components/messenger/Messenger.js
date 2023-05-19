@@ -7,10 +7,11 @@ export const Messenger = () => {
 	const apiTokenInstance = localStorage.getItem('apiTokenInstance');
 	const phoneNum = localStorage.getItem('phoneNum');
 	const phoneFormat = phoneNum + '@c.us';
-	const [newIncoming, SetNewIncoming] = useState('');
-	const [incoming, SetIncoming] = useState([]);
+	const [newOutgoing, SetNewOutgoing] = useState('');
+	const [Outgoing, SetOutgoing] = useState([]);
 
 	const getMessage = async () => {
+		// запрос каждые 5 секунд
 		const notification = await fetch(
 			`https://api.green-api.com/waInstance${idInstance}/ReceiveNotification/${apiTokenInstance}`,
 			{
@@ -18,11 +19,10 @@ export const Messenger = () => {
 			}
 		);
 		const jsonNotification = await notification.json();
-		if (!jsonNotification) return;
-		console.log(jsonNotification);
+		if (!jsonNotification.receiptId) return;
 		const receiptId = jsonNotification.receiptId;
-		const text = jsonNotification.messageData;
-		console.log(text);
+		const text = jsonNotification.body.messageData;
+		console.log('text', text);
 
 		const DeleteNotification = await fetch(
 			`https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`,
@@ -41,13 +41,13 @@ export const Messenger = () => {
 			method: 'POST',
 			body: JSON.stringify({
 				chatId: phoneFormat,
-				message: newIncoming,
+				message: newOutgoing,
 			}),
 		})
 			.then((response) => {
 				if (response.ok) {
-					SetIncoming([...incoming, newIncoming]);
-					SetNewIncoming('');
+					SetOutgoing([...Outgoing, newOutgoing]);
+					SetNewOutgoing('');
 				} else {
 					alert('Ошибка при отправке');
 				}
@@ -75,7 +75,7 @@ export const Messenger = () => {
 						<h4 className={styles.main__number}>{phoneNum}</h4>
 					</div>
 					<div className={styles.main__messages}>
-						{incoming.map((msg, index) => (
+						{Outgoing.map((msg, index) => (
 							<p key={index} className={styles.messages__message}>
 								{msg}
 							</p>
@@ -84,8 +84,8 @@ export const Messenger = () => {
 					<form className={styles.main__message_form}>
 						<input
 							className={styles.main__message}
-							value={newIncoming}
-							onChange={(e) => SetNewIncoming(e.target.value)}
+							value={newOutgoing}
+							onChange={(e) => SetNewOutgoing(e.target.value)}
 						></input>
 						<SendBtn onClick={handleSend}></SendBtn>
 					</form>
