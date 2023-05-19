@@ -15,18 +15,36 @@ export const Messenger = () => {
 			method: 'GET',
 		})
 			.then((response) => {
-				console.log(response);
+				if (response.ok) {
+					return response.json();
+				} else {
+					throw new Error('Network response was not OK');
+				}
+			})
+			.then((jsonData) => {
+				const receiptId = jsonData.receiptId;
+				console.log(jsonData);
+				return fetch(
+					`https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`,
+					{
+						method: 'DELETE',
+						redirect: 'follow',
+					}
+				);
+			})
+			.then((response) => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					throw new Error('Network response was not OK');
+				}
+			})
+			.then((jsonData) => {
+				console.log(jsonData);
 			})
 			.catch((error) => {
 				console.log(error);
 			});
-
-		fetch(`https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}`, {
-			method: 'DELETE',
-			redirect: 'follow',
-		}).then((response) => {
-			console.log(response);
-		});
 	};
 	getMessage();
 	const handleSend = (e) => {
@@ -66,20 +84,24 @@ export const Messenger = () => {
 			<div className={styles.substrate}></div>
 			<main className={styles.main}>
 				<div className={styles.ppp}>
-				<div className={styles.main__pnone}>
-					<h4 className={styles.main__number}>{phoneNum}</h4>
-				</div>
-				<div className={styles.main__messages}>
-					{messages.map((msg, index) => (
-						<p key={index} className={styles.messages__message}>
-							{msg}
-						</p>
-					))}
-				</div>
-				<form className={styles.main__message_form}>
-					<input className={styles.main__message} value={message} onChange={(e) => setMessage(e.target.value)}></input>
-					<SendBtn onClick={handleSend}></SendBtn>
-				</form>
+					<div className={styles.main__pnone}>
+						<h4 className={styles.main__number}>{phoneNum}</h4>
+					</div>
+					<div className={styles.main__messages}>
+						{messages.map((msg, index) => (
+							<p key={index} className={styles.messages__message}>
+								{msg}
+							</p>
+						))}
+					</div>
+					<form className={styles.main__message_form}>
+						<input
+							className={styles.main__message}
+							value={message}
+							onChange={(e) => setMessage(e.target.value)}
+						></input>
+						<SendBtn onClick={handleSend}></SendBtn>
+					</form>
 				</div>
 			</main>
 		</>

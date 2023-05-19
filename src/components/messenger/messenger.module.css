@@ -57,10 +57,11 @@
   overflow-y: auto;
 }
 
+
+
 .main__messages::-webkit-scrollbar {
   display: none;
 }
-
 
 .messages__message {
   align-self: flex-end;
@@ -99,4 +100,3 @@
   background-color: rgb(255, 255, 255);
   resize: none;
 }
-
