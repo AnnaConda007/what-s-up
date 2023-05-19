@@ -8,6 +8,7 @@ export const Messenger = () => {
 	const phoneNum = localStorage.getItem('phoneNum');
 	const phoneFormat = phoneNum + '@c.us';
 	const [message, setMessage] = useState('');
+	const [getMessages, setGetmessages] = useState([]);
 	const [messages, setMessages] = useState([]);
 
 	const getMessage = () => {
@@ -22,15 +23,22 @@ export const Messenger = () => {
 				}
 			})
 			.then((jsonData) => {
-				const receiptId = jsonData.receiptId;
-				console.log(jsonData);
-				return fetch(
-					`https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`,
-					{
-						method: 'DELETE',
-						redirect: 'follow',
-					}
-				);
+				if (jsonData && jsonData.receiptId) {
+					const receiptId = jsonData.receiptId;
+					console.log(jsonData);
+					console.log(jsonData.body.messageData.textMessageData);
+					setGetmessages([getMessages, jsonData.body.messageData.textMessageData]);
+					console.log(getMessages);
+					return fetch(
+						`https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`,
+						{
+							method: 'DELETE',
+							redirect: 'follow',
+						}
+					);
+				} else {
+					throw new Error('Receipt ID is not available');
+				}
 			})
 			.then((response) => {
 				if (response.ok) {
@@ -46,7 +54,7 @@ export const Messenger = () => {
 				console.log(error);
 			});
 	};
-	getMessage();
+
 	const handleSend = (e) => {
 		e.preventDefault();
 		fetch(`https://api.green-api.com/waInstance${idInstance}/SendMessage/${apiTokenInstance}`, {
