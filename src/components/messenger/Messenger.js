@@ -22,12 +22,11 @@ export const Messenger = () => {
 		console.log(jsonNotification);
 		if (!jsonNotification || !jsonNotification.receiptId) return;
 		const receiptId = jsonNotification.receiptId;
-		const text = jsonNotification.body.messageData.textMessageData.textMessage;
-		const text2 = jsonNotification.body.extendedTextMessageData.text;
-		const text3 = text || text2;
-		if (text3 && text3 !== undefined) {
+		const text = jsonNotification.body.messageData?.extendedTextMessageData?.text;
+
+		if (text && text !== undefined) {
 			Setincoming((prevIncoming) => {
-				const newIncoming = [...prevIncoming, text3];
+				const newIncoming = [...prevIncoming, text];
 				console.log(newIncoming);
 				return newIncoming;
 			});
@@ -81,8 +80,14 @@ export const Messenger = () => {
 						<h4 className={styles.main__number}>{phoneNum}</h4>
 					</div>
 					<div className={styles.main__messages}>
+						<div></div>
 						{Outgoing.map((msg, index) => (
 							<p key={index} className={styles.messages__message}>
+								{msg}
+							</p>
+						))}
+						{incoming.map((msg, index) => (
+							<p key={index} className={styles.messages__messageInc}>
 								{msg}
 							</p>
 						))}
