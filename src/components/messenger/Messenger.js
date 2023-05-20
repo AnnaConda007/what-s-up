@@ -19,26 +19,24 @@ export const Messenger = () => {
 			}
 		);
 		const jsonNotification = await notification.json();
-		console.log(jsonNotification);
+		console.log('jsonNotification', jsonNotification);
+
 		if (!jsonNotification || !jsonNotification.receiptId) return;
 		const receiptId = jsonNotification.receiptId;
-		const text = jsonNotification.body.messageData?.extendedTextMessageData?.text;
+		const text = jsonNotification.body.messageData?.textMessageData?.textMessage;
 
 		if (text && text !== undefined) {
+			console.log('jsonNotification', jsonNotification);
 			Setincoming((prevIncoming) => {
 				const newIncoming = [...prevIncoming, text];
-				console.log(newIncoming);
+				console.log('newIncoming', newIncoming);
 				return newIncoming;
 			});
 		}
-		const DeleteNotification = await fetch(
-			`https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`,
-			{
-				method: 'DELETE',
-				redirect: 'follow',
-			}
-		);
-		const jsonDeleteNotification = await DeleteNotification.json();
+		fetch(`https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`, {
+			method: 'DELETE',
+			redirect: 'follow',
+		});
 	};
 
 	const handleSend = (e) => {
@@ -53,6 +51,7 @@ export const Messenger = () => {
 			.then((response) => {
 				if (response.ok) {
 					SetOutgoing([...Outgoing, newOutgoing]);
+					console.log('Outgoing', Outgoing);
 					SetNewOutgoing('');
 				} else {
 					alert('Ошибка при отправке');
@@ -75,19 +74,21 @@ export const Messenger = () => {
 		<>
 			<div className={styles.substrate}></div>
 			<main className={styles.main}>
-				<div className={styles.ppp}>
+				<div className={styles.main__wrap}>
 					<div className={styles.main__pnone}>
 						<h4 className={styles.main__number}>{phoneNum}</h4>
 					</div>
 					<div className={styles.main__messages}>
 						<div></div>
 						{Outgoing.map((msg, index) => (
-							<p key={index} className={styles.messages__message}>
-								{msg}
-							</p>
+							<div key={index} className={styles.messages__frame}>
+								<p key={index} className={styles.messages__out}>
+									{msg}
+								</p>
+							</div>
 						))}
 						{incoming.map((msg, index) => (
-							<p key={index} className={styles.messages__messageInc}>
+							<p key={index} className={styles.messages__inc}>
 								{msg}
 							</p>
 						))}
