@@ -4,14 +4,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const EnterPhone = () => {
-	const apiTokenInstance = localStorage.getItem('apiTokenInstance');
 	const navigate = useNavigate();
-	const idInstance = localStorage.getItem('idInstance');
 	const [phoneNum, setPhoneNum] = useState('');
 	const handleNext = (e) => {
 		e.preventDefault();
 		localStorage.setItem('phoneNum', phoneNum);
-		console.log(apiTokenInstance, idInstance);
 		navigate('/what`s-up-messenger');
 	};
 	return (
