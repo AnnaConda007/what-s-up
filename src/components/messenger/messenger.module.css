@@ -1,14 +1,29 @@
 .main {
-  max-width: 900px;
   width: 100%;
+  height: 100%;
+  min-height: 600px;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-  margin: 25px;
   font-family: 'SegoeUI';
+  background-color: #d1d7db;
+}
+
+.main__wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  z-index: 1;
+  max-width: 1000px;
+  width: 100%;
+  height: 95%;
 }
 
 .substrate {
-  height: 120px;
+  max-height: 120px;
+  height: 10%;
   width: 100%;
   background-color: #008069;
   position: absolute;
@@ -21,7 +36,6 @@
   padding: 20px 0px;
   width: 100%;
   text-align: start;
-  z-index: 1;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
@@ -34,16 +48,24 @@
   background-color: #f0f2f5;
   background-image: url('/public/what-s-img.jpg');
   background-size: contain;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
   width: 100%;
-  z-index: 1;
-  height: 580px; /*не адаптируется*/
+  overflow-y: auto;
+  min-height: 400px;
+  height: 85%;
   overflow-y: auto;
 }
 
-.messages__message {
+.messages__frame {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main__messages::-webkit-scrollbar {
+  display: none;
+}
+
+.messages__out {
   align-self: flex-end;
   background-color: #4ada80;
   max-width: 200px;
@@ -57,7 +79,22 @@
   text-align: start;
 }
 
+.messages__inc {
+  align-self: flex-start;
+  background-color: #eaf2ed;
+  max-width: 200px;
+  width: fit-content;
+  overflow-wrap: break-word;
+  padding: 5px 10px;
+  margin: 10px;
+  border-radius: 15px;
+  border-bottom-right-radius: 0px;
+  white-space: normal;
+  text-align: start;
+}
+
 .main__message_form {
+  max-height: 15%;
   background-color: #f0f2f5;
   width: 100%;
   display: flex;
@@ -77,6 +114,5 @@
   margin: 10px;
   text-align: start;
   background-color: rgb(255, 255, 255);
-  overflow-y: scroll;
   resize: none;
 }

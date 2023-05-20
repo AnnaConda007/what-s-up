@@ -14,7 +14,6 @@ export const EnterPhone = () => {
 		console.log(apiTokenInstance, idInstance);
 		navigate('/what`s-up-messenger');
 	};
-
 	return (
 		<main className={styles.main}>
 			<form

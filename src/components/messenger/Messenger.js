@@ -7,42 +7,52 @@ export const Messenger = () => {
 	const apiTokenInstance = localStorage.getItem('apiTokenInstance');
 	const phoneNum = localStorage.getItem('phoneNum');
 	const phoneFormat = phoneNum + '@c.us';
-	const [message, setMessage] = useState('');
-	const [messages, setMessages] = useState([]);
+	const [newOutgoing, SetNewOutgoing] = useState('');
+	const [Outgoing, SetOutgoing] = useState([]);
+	const [incoming, Setincoming] = useState([]);
 
-	const getMessage = () => {
-		fetch(`https://api.green-api.com/waInstance${idInstance}/ReceiveNotification/${apiTokenInstance}`, {
-			method: 'GET',
-		})
-			.then((response) => {
-				console.log(response);
-			})
-			.catch((error) => {
-				console.log(error);
+	const getMessage = async () => {
+		const notification = await fetch(
+			`https://api.green-api.com/waInstance${idInstance}/ReceiveNotification/${apiTokenInstance}`,
+			{
+				method: 'GET',
+			}
+		);
+		const jsonNotification = await notification.json();
+		console.log('jsonNotification', jsonNotification);
+
+		if (!jsonNotification || !jsonNotification.receiptId) return;
+		const receiptId = jsonNotification.receiptId;
+		const text = jsonNotification.body.messageData?.textMessageData?.textMessage;
+
+		if (text && text !== undefined) {
+			console.log('jsonNotification', jsonNotification);
+			Setincoming((prevIncoming) => {
+				const newIncoming = [...prevIncoming, text];
+				console.log('newIncoming', newIncoming);
+				return newIncoming;
 			});
-
-		fetch(`https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}`, {
+		}
+		fetch(`https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`, {
 			method: 'DELETE',
 			redirect: 'follow',
-		}).then((response) => {
-			console.log(response);
 		});
 	};
-	getMessage();
+
 	const handleSend = (e) => {
 		e.preventDefault();
 		fetch(`https://api.green-api.com/waInstance${idInstance}/SendMessage/${apiTokenInstance}`, {
 			method: 'POST',
 			body: JSON.stringify({
 				chatId: phoneFormat,
-				message: message,
+				message: newOutgoing,
 			}),
 		})
 			.then((response) => {
 				if (response.ok) {
-					console.log(response);
-					setMessages([...messages, message]);
-					setMessage('');
+					SetOutgoing([...Outgoing, newOutgoing]);
+					console.log('Outgoing', Outgoing);
+					SetNewOutgoing('');
 				} else {
 					alert('Ошибка при отправке');
 				}
@@ -59,30 +69,39 @@ export const Messenger = () => {
 		return () => {
 			clearInterval(intervalId);
 		};
-	}, []); // !!!!!!!!!!!!  ???????????
-
+	}, []);
 	return (
 		<>
 			<div className={styles.substrate}></div>
 			<main className={styles.main}>
-				<div className={styles.main__pnone}>
-					<h4 className={styles.main__number}>{phoneNum}</h4>
+				<div className={styles.main__wrap}>
+					<div className={styles.main__pnone}>
+						<h4 className={styles.main__number}>{phoneNum}</h4>
+					</div>
+					<div className={styles.main__messages}>
+						<div></div>
+						{Outgoing.map((msg, index) => (
+							<div key={index} className={styles.messages__frame}>
+								<p key={index} className={styles.messages__out}>
+									{msg}
+								</p>
+							</div>
+						))}
+						{incoming.map((msg, index) => (
+							<p key={index} className={styles.messages__inc}>
+								{msg}
+							</p>
+						))}
+					</div>
+					<form className={styles.main__message_form}>
+						<input
+							className={styles.main__message}
+							value={newOutgoing}
+							onChange={(e) => SetNewOutgoing(e.target.value)}
+						></input>
+						<SendBtn onClick={handleSend}></SendBtn>
+					</form>
 				</div>
-				<div className={styles.main__messages}>
-					{messages.map((msg, index) => (
-						<p key={index} className={styles.messages__message}>
-							{msg}
-						</p>
-					))}
-				</div>
-				<form className={styles.main__message_form}>
-					<textarea
-						className={styles.main__message}
-						value={message}
-						onChange={(e) => setMessage(e.target.value)}
-					></textarea>
-					<SendBtn onClick={handleSend}></SendBtn>
-				</form>
 			</main>
 		</>
 	);
