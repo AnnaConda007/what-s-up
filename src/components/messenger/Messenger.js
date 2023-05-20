@@ -9,9 +9,9 @@ export const Messenger = () => {
 	const phoneFormat = phoneNum + '@c.us';
 	const [newOutgoing, SetNewOutgoing] = useState('');
 	const [Outgoing, SetOutgoing] = useState([]);
+	const [incoming, Setincoming] = useState([]);
 
 	const getMessage = async () => {
-		// запрос каждые 5 секунд
 		const notification = await fetch(
 			`https://api.green-api.com/waInstance${idInstance}/ReceiveNotification/${apiTokenInstance}`,
 			{
@@ -19,11 +19,17 @@ export const Messenger = () => {
 			}
 		);
 		const jsonNotification = await notification.json();
-		if (!jsonNotification.receiptId) return;
+		if (!jsonNotification || !jsonNotification.receiptId) return;
 		const receiptId = jsonNotification.receiptId;
-		const text = jsonNotification.body.messageData;
-		console.log('text', text);
+		const text = jsonNotification.body.messageData.textMessageData.textMessage;
 
+		if (text && text !== undefined) {
+			Setincoming((prevIncoming) => {
+				const newIncoming = [...prevIncoming, text];
+				console.log(newIncoming); // выводим новый массив в консоль
+				return newIncoming;
+			});
+		}
 		const DeleteNotification = await fetch(
 			`https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`,
 			{
@@ -32,7 +38,6 @@ export const Messenger = () => {
 			}
 		);
 		const jsonDeleteNotification = await DeleteNotification.json();
-		console.log(jsonDeleteNotification);
 	};
 
 	const handleSend = (e) => {
@@ -64,8 +69,7 @@ export const Messenger = () => {
 		return () => {
 			clearInterval(intervalId);
 		};
-	}, []); // !!!!!!!!!!!!  ???????????
-
+	}, []);
 	return (
 		<>
 			<div className={styles.substrate}></div>
