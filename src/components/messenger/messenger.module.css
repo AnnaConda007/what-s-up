@@ -31,7 +31,7 @@
   z-index: 0;
 }
 
-.main__pnone {
+.main__phone {
   background-color: #f0f2f5;
   padding: 20px 0px;
   width: 100%;
@@ -53,42 +53,42 @@
   min-height: 400px;
   height: 85%;
   overflow-y: auto;
+  padding: 5px;
 }
 
-.messages__frame {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.main__messages::-webkit-scrollbar {
-  display: none;
-}
-
-.messages__out {
-  align-self: flex-end;
-  background-color: #4ada80;
-  max-width: 200px;
+.messages__frameOut {
   width: fit-content;
+  margin-left: auto;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  background-color: #15d860;
   overflow-wrap: break-word;
   padding: 5px 10px;
-  margin: 10px;
+  border-radius: 15px;
+  border-top-right-radius: 0px;
+  white-space: normal;
+}
+
+.messages__frameInc {
+  width: fit-content;
+  margin-right: auto;
+  background-color: #eaf2ed;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  overflow-wrap: break-word;
+  padding: 5px 10px;
   border-radius: 15px;
   border-bottom-right-radius: 0px;
   white-space: normal;
-  text-align: start;
 }
 
-.messages__inc {
-  align-self: flex-start;
-  background-color: #eaf2ed;
+.message {
   max-width: 200px;
   width: fit-content;
   overflow-wrap: break-word;
   padding: 5px 10px;
-  margin: 10px;
+  margin: 0;
   border-radius: 15px;
-  border-bottom-right-radius: 0px;
   white-space: normal;
   text-align: start;
 }

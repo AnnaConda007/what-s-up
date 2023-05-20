@@ -24,11 +24,10 @@ export const EnterPhone = () => {
 			>
 				<Input
 					id='numberPhone'
-					autoComplete='995555598092' //удалить
+					autoComplete='off'
 					placeholder='Номер телефона получателя'
 					value={phoneNum}
 					onChange={(e) => setPhoneNum(e.target.value)}
-					formatted
 				></Input>
 				<button className={styles.frame__btn}>Создать чат</button>
 			</form>

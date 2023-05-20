@@ -28,14 +28,14 @@ export const Authorization = () => {
 			<form className={styles.main__frame} onSubmit={handleSubmit}>
 				<Input
 					id='idInstance'
-					autoComplete='1101821223' //удалить
+					autoComplete='off'
 					placeholder='idInstance'
 					value={idInstance}
 					onChange={(e) => setIdInstance(e.target.value)}
 				></Input>
 				<Input
 					id='apiTokenInstance'
-					autoComplete='758ada212e094a7883a6ecadf6c3b9e9c6ea1bc713324d8682'
+					autoComplete='off'
 					placeholder='apiTokenInstance'
 					value={apiTokenInstance}
 					onChange={(e) => setApiTokenInstance(e.target.value)}

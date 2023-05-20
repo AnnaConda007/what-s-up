@@ -1,15 +1,14 @@
 import styles from './messenger.module.css';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SendBtn } from '../SendBtn/SendBtn';
+
 export const Messenger = () => {
 	const idInstance = localStorage.getItem('idInstance');
 	const apiTokenInstance = localStorage.getItem('apiTokenInstance');
 	const phoneNum = localStorage.getItem('phoneNum');
 	const phoneFormat = phoneNum + '@c.us';
-	const [newOutgoing, SetNewOutgoing] = useState('');
-	const [Outgoing, SetOutgoing] = useState([]);
-	const [incoming, Setincoming] = useState([]);
+	const [newOutgoing, setNewOutgoing] = useState('');
+	const [messages, setMessages] = useState([]);
 
 	const getMessage = async () => {
 		const notification = await fetch(
@@ -19,20 +18,15 @@ export const Messenger = () => {
 			}
 		);
 		const jsonNotification = await notification.json();
-		console.log('jsonNotification', jsonNotification);
 
 		if (!jsonNotification || !jsonNotification.receiptId) return;
 		const receiptId = jsonNotification.receiptId;
 		const text = jsonNotification.body.messageData?.textMessageData?.textMessage;
 
 		if (text && text !== undefined) {
-			console.log('jsonNotification', jsonNotification);
-			Setincoming((prevIncoming) => {
-				const newIncoming = [...prevIncoming, text];
-				console.log('newIncoming', newIncoming);
-				return newIncoming;
-			});
+			setMessages((prevMessages) => [...prevMessages, { text, isOutgoing: false }]);
 		}
+
 		fetch(`https://api.green-api.com/waInstance${idInstance}/DeleteNotification/${apiTokenInstance}/${receiptId}`, {
 			method: 'DELETE',
 			redirect: 'follow',
@@ -50,9 +44,8 @@ export const Messenger = () => {
 		})
 			.then((response) => {
 				if (response.ok) {
-					SetOutgoing([...Outgoing, newOutgoing]);
-					console.log('Outgoing', Outgoing);
-					SetNewOutgoing('');
+					setMessages((prevMessages) => [...prevMessages, { text: newOutgoing, isOutgoing: true }]);
+					setNewOutgoing('');
 				} else {
 					alert('Ошибка при отправке');
 				}
@@ -70,34 +63,28 @@ export const Messenger = () => {
 			clearInterval(intervalId);
 		};
 	}, []);
+
 	return (
 		<>
 			<div className={styles.substrate}></div>
 			<main className={styles.main}>
 				<div className={styles.main__wrap}>
-					<div className={styles.main__pnone}>
+					<div className={styles.main__phone}>
 						<h4 className={styles.main__number}>{phoneNum}</h4>
 					</div>
 					<div className={styles.main__messages}>
-						<div></div>
-						{Outgoing.map((msg, index) => (
-							<div key={index} className={styles.messages__frame}>
-								<p key={index} className={styles.messages__out}>
-									{msg}
-								</p>
+						{messages.map((msg, index) => (
+							<div key={index} className={msg.isOutgoing ? styles.messages__frameOut : styles.messages__frameInc}>
+								<p className={styles.message}>{msg.text}</p>
 							</div>
 						))}
-						{incoming.map((msg, index) => (
-							<p key={index} className={styles.messages__inc}>
-								{msg}
-							</p>
-						))}
 					</div>
-					<form className={styles.main__message_form}>
+					<form className={styles.main__message_form} onSubmit={handleSend}>
 						<input
 							className={styles.main__message}
 							value={newOutgoing}
-							onChange={(e) => SetNewOutgoing(e.target.value)}
+							onChange={(e) => setNewOutgoing(e.target.value)}
+							placeholder='Type a message...'
 						></input>
 						<SendBtn onClick={handleSend}></SendBtn>
 					</form>
