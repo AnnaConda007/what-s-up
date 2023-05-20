@@ -62,7 +62,7 @@ export const Messenger = () => {
 		return () => {
 			clearInterval(intervalId);
 		};
-	}, []);
+	});
 
 	return (
 		<>
