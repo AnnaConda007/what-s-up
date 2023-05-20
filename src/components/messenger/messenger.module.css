@@ -77,6 +77,20 @@
   text-align: start;
 }
 
+.messages__messageInc {
+  align-self: flex-start;
+  background-color: #eaf2ed;
+  max-width: 200px;
+  width: fit-content;
+  overflow-wrap: break-word;
+  padding: 5px 10px;
+  margin: 10px;
+  border-radius: 15px;
+  border-bottom-right-radius: 0px;
+  white-space: normal;
+  text-align: start;
+}
+
 .main__message_form {
   max-height: 15%;
   background-color: #f0f2f5;

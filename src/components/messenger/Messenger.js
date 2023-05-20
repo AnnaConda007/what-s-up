@@ -19,14 +19,16 @@ export const Messenger = () => {
 			}
 		);
 		const jsonNotification = await notification.json();
+		console.log(jsonNotification);
 		if (!jsonNotification || !jsonNotification.receiptId) return;
 		const receiptId = jsonNotification.receiptId;
 		const text = jsonNotification.body.messageData.textMessageData.textMessage;
-
-		if (text && text !== undefined) {
+		const text2 = jsonNotification.body.extendedTextMessageData.text;
+		const text3 = text || text2;
+		if (text3 && text3 !== undefined) {
 			Setincoming((prevIncoming) => {
-				const newIncoming = [...prevIncoming, text];
-				console.log(newIncoming); // выводим новый массив в консоль
+				const newIncoming = [...prevIncoming, text3];
+				console.log(newIncoming);
 				return newIncoming;
 			});
 		}
